@@ -2,11 +2,12 @@ package com.openclassrooms.testing.calcul.e2e;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.time.Duration;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -14,14 +15,13 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.web.server.LocalServerPort;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.boot.test.web.server.LocalServerPort;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 
-@ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class StudentMultiplicationJourneyE2E {
+public class StudentMultiplicationJourneyE2E
+{
 
 	@LocalServerPort
 	private Integer port;
@@ -29,25 +29,31 @@ public class StudentMultiplicationJourneyE2E {
 	private String baseUrl;
 
 	@BeforeAll
-	public static void setUpFirefoxDriver() {
+	public static void setUpFirefoxDriver()
+	{
 		WebDriverManager.firefoxdriver().setup();
 	}
 
 	@BeforeEach
-	public void setUpWebDriver() {
+	public void setUpWebDriver()
+	{
 		webDriver = new FirefoxDriver();
 		baseUrl = "http://localhost:" + port + "/calculator";
 	}
 
 	@AfterEach
-	public void quitWebDriver() {
-		if (webDriver != null) {
+	public void quitWebDriver()
+	{
+
+		if (webDriver != null)
+		{
 			webDriver.quit();
 		}
 	}
 
 	@Test
-	public void aStudentUsesTheCalculatorToMultiplyTwoBySixteen() {
+	public void aStudentUsesTheCalculatorToMultiplyTwoBySixteen()
+	{
 
 		// GIVEN
 		webDriver.get(baseUrl);
@@ -63,9 +69,8 @@ public class StudentMultiplicationJourneyE2E {
 		submitButton.click();
 
 		// THEN
-		final WebDriverWait waiter = new WebDriverWait(webDriver, 5);
-		final WebElement solutionElement = waiter.until(
-				ExpectedConditions.presenceOfElementLocated(By.id("solution")));
+		final WebDriverWait waiter = new WebDriverWait(webDriver, Duration.ofSeconds(5));
+		final WebElement solutionElement = waiter.until(ExpectedConditions.presenceOfElementLocated(By.id("solution")));
 		final String solution = solutionElement.getText();
 		assertThat(solution).isEqualTo("32"); // 2 x 16
 	}
