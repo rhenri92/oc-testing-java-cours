@@ -10,7 +10,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>21</maven.compiler.source>
 		<maven.compiler.target>${maven.compiler.source}</maven.compiler.target>
-		<bootstrap.version>4.3.1</bootstrap.version>
+		<bootstrap.version>5.0.0</bootstrap.version>
 		<springboot.version>2.2.0.RELEASE</springboot.version>
 		<sonar.organization>rhenri92</sonar.organization>
 		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
